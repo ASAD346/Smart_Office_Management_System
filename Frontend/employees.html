@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees - SOMS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>🏢 SOMS</h2>
+                <p class="user-role" id="userRole">Loading...</p>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html">📊 Dashboard</a></li>
+                <li><a href="employees.html" class="active">👥 Employees</a></li>
+                <li><a href="attendance.html">📅 Attendance</a></li>
+                <li><a href="meetings.html">🗓️ Meetings</a></li>
+                <li><a href="tasks.html">📋 Tasks</a></li>
+                <li id="reportsLink" class="hidden"><a href="reports.html">📈 Reports</a></li>
+                <li><a href="#" id="logoutBtn">🚪 Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Employees</h1>
+                <div class="header-actions">
+                    <button id="addEmployeeBtn" class="btn btn-primary hidden">+ Add Employee</button>
+                    <span id="userName">Loading...</span>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>All Employees</h2>
+                        <input type="text" id="searchInput" class="form-control" 
+                               placeholder="Search employees..." style="max-width: 300px;">
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Position</th>
+                                        <th>Department</th>
+                                        <th>Phone</th>
+                                        <th>Join Date</th>
+                                        <th class="action-column">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="employeesTableBody">
+                                    <tr><td colspan="8" class="text-center">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Employee Modal -->
+    <div class="modal" id="employeeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add Employee</h2>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="employeeForm">
+                    <input type="hidden" id="employeeId">
+                    
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input type="text" id="firstName" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input type="text" id="lastName" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+
+                    <div class="form-group" id="passwordGroup">
+                        <label for="password">Password *</label>
+                        <input type="password" id="password" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="tel" id="phoneNumber" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="position">Position *</label>
+                        <input type="text" id="position" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="departmentId">Department *</label>
+                        <select id="departmentId" class="form-control" required>
+                            <option value="1">IT</option>
+                            <option value="2">Human Resources</option>
+                            <option value="3">Finance</option>
+                            <option value="4">Marketing</option>
+                            <option value="5">Operations</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="roleId">Role *</label>
+                        <select id="roleId" class="form-control" required>
+                            <option value="1">Admin</option>
+                            <option value="2">HR</option>
+                            <option value="3">Employee</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="joinDate">Join Date *</label>
+                        <input type="date" id="joinDate" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="saveEmployee()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        const user = api.getCurrentUser();
+        let employees = [];
+        let isEditing = false;
+
+        document.getElementById('userName').textContent = user.fullName;
+        document.getElementById('userRole').textContent = user.role;
+
+        // Show controls for Admin/HR
+        if (utils.canManage()) {
+            document.getElementById('reportsLink').classList.remove('hidden');
+            document.getElementById('addEmployeeBtn').classList.remove('hidden');
+        }
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                api.logout();
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Load employees
+        async function loadEmployees() {
+            try {
+                employees = await api.getEmployees();
+                renderEmployees(employees);
+            } catch (error) {
+                utils.showAlert('Error loading employees: ' + error.message, 'error');
+            }
+        }
+
+        function renderEmployees(data) {
+            const tbody = document.getElementById('employeesTableBody');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center">No employees found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = data.map(emp => `
+                <tr>
+                    <td>${emp.employeeId}</td>
+                    <td>${emp.firstName} ${emp.lastName}</td>
+                    <td>${emp.email}</td>
+                    <td>${emp.position}</td>
+                    <td>${emp.departmentName || 'N/A'}</td>
+                    <td>${emp.phoneNumber || '-'}</td>
+                    <td>${utils.formatDate(emp.joinDate)}</td>
+                    <td>
+                        ${utils.canManage() ? `
+                            <button onclick="editEmployee(${emp.employeeId})" class="btn btn-sm btn-primary">Edit</button>
+                            ${utils.hasRole('Admin') ? `
+                                <button onclick="deleteEmployee(${emp.employeeId})" class="btn btn-sm btn-danger">Delete</button>
+                            ` : ''}
+                        ` : '-'}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const search = e.target.value.toLowerCase();
+            const filtered = employees.filter(emp => 
+                emp.firstName.toLowerCase().includes(search) ||
+                emp.lastName.toLowerCase().includes(search) ||
+                emp.email.toLowerCase().includes(search) ||
+                emp.position.toLowerCase().includes(search)
+            );
+            renderEmployees(filtered);
+        });
+
+        // Add employee button
+        document.getElementById('addEmployeeBtn').addEventListener('click', () => {
+            isEditing = false;
+            document.getElementById('modalTitle').textContent = 'Add Employee';
+            document.getElementById('employeeForm').reset();
+            document.getElementById('employeeId').value = '';
+            document.getElementById('passwordGroup').style.display = 'block';
+            document.getElementById('password').required = true;
+            document.getElementById('joinDate').value = utils.formatDateInput();
+            openModal();
+        });
+
+        function openModal() {
+            document.getElementById('employeeModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('employeeModal').classList.remove('active');
+        }
+
+        async function editEmployee(id) {
+            try {
+                const employee = await api.getEmployee(id);
+                isEditing = true;
+                
+                document.getElementById('modalTitle').textContent = 'Edit Employee';
+                document.getElementById('employeeId').value = employee.employeeId;
+                document.getElementById('firstName').value = employee.firstName;
+                document.getElementById('lastName').value = employee.lastName;
+                document.getElementById('email').value = employee.email;
+                document.getElementById('phoneNumber').value = employee.phoneNumber || '';
+                document.getElementById('position').value = employee.position;
+                document.getElementById('departmentId').value = employee.departmentId;
+                document.getElementById('roleId').value = employee.roleId;
+                document.getElementById('joinDate').value = utils.formatDateInput(employee.joinDate);
+                
+                // Hide password field when editing
+                document.getElementById('passwordGroup').style.display = 'none';
+                document.getElementById('password').required = false;
+                
+                openModal();
+            } catch (error) {
+                utils.showAlert('Error loading employee: ' + error.message, 'error');
+            }
+        }
+
+        async function saveEmployee() {
+            const form = document.getElementById('employeeForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const data = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                position: document.getElementById('position').value,
+                departmentId: parseInt(document.getElementById('departmentId').value),
+                roleId: parseInt(document.getElementById('roleId').value),
+                joinDate: document.getElementById('joinDate').value
+            };
+
+            if (!isEditing) {
+                data.password = document.getElementById('password').value;
+            }
+
+            try {
+                if (isEditing) {
+                    const id = document.getElementById('employeeId').value;
+                    await api.updateEmployee(id, data);
+                    utils.showAlert('Employee updated successfully', 'success');
+                } else {
+                    await api.createEmployee(data);
+                    utils.showAlert('Employee created successfully', 'success');
+                }
+                
+                closeModal();
+                loadEmployees();
+            } catch (error) {
+                utils.showAlert('Error saving employee: ' + error.message, 'error');
+            }
+        }
+
+        async function deleteEmployee(id) {
+            if (!confirm('Are you sure you want to delete this employee?')) return;
+
+            try {
+                await api.deleteEmployee(id);
+                utils.showAlert('Employee deleted successfully', 'success');
+                loadEmployees();
+            } catch (error) {
+                utils.showAlert('Error deleting employee: ' + error.message, 'error');
+            }
+        }
+
+        // Load data on page load
+        loadEmployees();
+    </script>
+</body>
+</html>

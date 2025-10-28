@@ -1,0 +1,260 @@
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\SOMS.API.csproj.AssemblyReference.cache
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\rpswa.dswa.cache.json
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\SOMS.API.GeneratedMSBuildEditorConfig.editorconfig
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\SOMS.API.AssemblyInfoInputs.cache
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\SOMS.API.AssemblyInfo.cs
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\SOMS.API.csproj.CoreCompileInputs.cache
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\SOMS.API.MvcApplicationPartsAssemblyInfo.cs
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\SOMS.API.MvcApplicationPartsAssemblyInfo.cache
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\appsettings.Development.json
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\appsettings.json
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\SOMS.API.staticwebassets.endpoints.json
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\SOMS.API.exe
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\SOMS.API.deps.json
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\SOMS.API.runtimeconfig.json
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\SOMS.API.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\SOMS.API.pdb
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\BCrypt.Net-Next.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Humanizer.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.Build.Locator.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.CodeAnalysis.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Design.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Relational.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.Extensions.DependencyModel.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Microsoft.OpenApi.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Mono.TextTemplating.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\MySqlConnector.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\Pomelo.EntityFrameworkCore.MySql.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\System.CodeDom.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\System.Composition.AttributedModel.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\System.Composition.Convention.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\System.Composition.Hosting.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\System.Composition.Runtime.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\System.Composition.TypedParts.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\rjimswa.dswa.cache.json
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\scopedcss\bundle\SOMS.API.styles.css
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\staticwebassets.build.json
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\staticwebassets.build.json.cache
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\staticwebassets.development.json
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\staticwebassets.build.endpoints.json
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\swae.build.ex.cache
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\SOMS.API.csproj.Up2Date
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\SOMS.API.dll
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\refint\SOMS.API.dll
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\SOMS.API.pdb
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\SOMS.API.genruntimeconfig.cache
+E:\VISUAL BASIC C#\SOMS\Backend\obj\Debug\net10.0\ref\SOMS.API.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\appsettings.Development.json
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\appsettings.json
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\SOMS.API.staticwebassets.endpoints.json
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\SOMS.API.exe
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\SOMS.API.deps.json
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\SOMS.API.runtimeconfig.json
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\SOMS.API.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\SOMS.API.pdb
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\BCrypt.Net-Next.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Humanizer.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.Build.Locator.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.CodeAnalysis.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Design.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Relational.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.Extensions.DependencyModel.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Microsoft.OpenApi.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Mono.TextTemplating.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\MySqlConnector.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\Pomelo.EntityFrameworkCore.MySql.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\System.CodeDom.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\System.Composition.AttributedModel.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\System.Composition.Convention.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\System.Composition.Hosting.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\System.Composition.Runtime.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\System.Composition.TypedParts.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUALBASIC\SOMS\Backend\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\SOMS.API.csproj.AssemblyReference.cache
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\rpswa.dswa.cache.json
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\SOMS.API.GeneratedMSBuildEditorConfig.editorconfig
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\SOMS.API.AssemblyInfoInputs.cache
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\SOMS.API.AssemblyInfo.cs
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\SOMS.API.csproj.CoreCompileInputs.cache
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\SOMS.API.MvcApplicationPartsAssemblyInfo.cs
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\SOMS.API.MvcApplicationPartsAssemblyInfo.cache
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\rjimswa.dswa.cache.json
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\scopedcss\bundle\SOMS.API.styles.css
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\staticwebassets.build.json
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\staticwebassets.build.json.cache
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\staticwebassets.development.json
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\staticwebassets.build.endpoints.json
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\swae.build.ex.cache
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\SOMS.API.csproj.Up2Date
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\SOMS.API.dll
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\refint\SOMS.API.dll
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\SOMS.API.pdb
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\SOMS.API.genruntimeconfig.cache
+E:\VISUALBASIC\SOMS\Backend\obj\Debug\net10.0\ref\SOMS.API.dll

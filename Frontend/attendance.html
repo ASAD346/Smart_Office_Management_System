@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance - SOMS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>🏢 SOMS</h2>
+                <p class="user-role" id="userRole">Loading...</p>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html">📊 Dashboard</a></li>
+                <li><a href="employees.html">👥 Employees</a></li>
+                <li><a href="attendance.html" class="active">📅 Attendance</a></li>
+                <li><a href="meetings.html">🗓️ Meetings</a></li>
+                <li><a href="tasks.html">📋 Tasks</a></li>
+                <li id="reportsLink" class="hidden"><a href="reports.html">📈 Reports</a></li>
+                <li><a href="#" id="logoutBtn">🚪 Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Attendance</h1>
+                <div class="header-actions">
+                    <span id="userName">Loading...</span>
+                </div>
+            </header>
+
+            <div class="content">
+                <!-- Check-in/Out Card -->
+                <div class="card" id="checkInCard">
+                    <div class="card-header">
+                        <h2>Today's Attendance</h2>
+                        <span id="currentTime"></span>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex gap-2">
+                            <button id="checkInBtn" class="btn btn-success">✓ Check In</button>
+                            <button id="checkOutBtn" class="btn btn-warning" disabled>✓ Check Out</button>
+                            <div id="statusMessage" style="margin-left: 20px; align-self: center;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Today's Attendance Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Today's Attendance Records</h2>
+                        <button onclick="loadTodayAttendance()" class="btn btn-sm btn-primary">Refresh</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Check-In Time</th>
+                                        <th>Check-Out Time</th>
+                                        <th>Location</th>
+                                        <th>Status</th>
+                                        <th>Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="todayTableBody">
+                                    <tr><td colspan="6" class="text-center">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attendance History -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Attendance History</h2>
+                        <div class="d-flex gap-1">
+                            <input type="date" id="filterDate" class="form-control" style="max-width: 200px;">
+                            <button onclick="filterByDate()" class="btn btn-sm btn-primary">Filter</button>
+                            <button onclick="clearFilter()" class="btn btn-sm btn-secondary">Clear</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Employee</th>
+                                        <th>Check-In</th>
+                                        <th>Check-Out</th>
+                                        <th>Status</th>
+                                        <th>Hours</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historyTableBody">
+                                    <tr><td colspan="6" class="text-center">Select a date to view history</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        const user = api.getCurrentUser();
+        let todayAttendance = null;
+
+        document.getElementById('userName').textContent = user.fullName;
+        document.getElementById('userRole').textContent = user.role;
+
+        if (utils.canManage()) {
+            document.getElementById('reportsLink').classList.remove('hidden');
+        }
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                api.logout();
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Check today's attendance status
+        async function checkTodayStatus() {
+            try {
+                const records = await api.getTodayAttendance();
+                const myRecord = records.find(r => r.employeeId === user.employeeId);
+                
+                if (myRecord) {
+                    todayAttendance = myRecord;
+                    document.getElementById('checkInBtn').disabled = true;
+                    
+                    if (myRecord.checkOutTime) {
+                        document.getElementById('statusMessage').innerHTML = 
+                            `<span class="badge badge-success">Checked Out at ${utils.formatTime(myRecord.checkOutTime)}</span>`;
+                        document.getElementById('checkOutBtn').disabled = true;
+                    } else {
+                        document.getElementById('statusMessage').innerHTML = 
+                            `<span class="badge badge-info">Checked In at ${utils.formatTime(myRecord.checkInTime)}</span>`;
+                        document.getElementById('checkOutBtn').disabled = false;
+                    }
+                } else {
+                    document.getElementById('checkInBtn').disabled = false;
+                    document.getElementById('checkOutBtn').disabled = true;
+                    document.getElementById('statusMessage').innerHTML = 
+                        '<span class="text-muted">Not checked in today</span>';
+                }
+            } catch (error) {
+                console.error('Error checking status:', error);
+            }
+        }
+
+        // Check In
+        document.getElementById('checkInBtn').addEventListener('click', async () => {
+            try {
+                const location = prompt('Enter your location:', 'Office');
+                if (!location) return;
+
+                await api.checkIn(user.employeeId, location);
+                utils.showAlert('Checked in successfully!', 'success');
+                checkTodayStatus();
+                loadTodayAttendance();
+            } catch (error) {
+                utils.showAlert('Error checking in: ' + error.message, 'error');
+            }
+        });
+
+        // Check Out
+        document.getElementById('checkOutBtn').addEventListener('click', async () => {
+            try {
+                const location = prompt('Enter your location:', 'Office');
+                if (!location) return;
+
+                await api.checkOut(user.employeeId, location);
+                utils.showAlert('Checked out successfully!', 'success');
+                checkTodayStatus();
+                loadTodayAttendance();
+            } catch (error) {
+                utils.showAlert('Error checking out: ' + error.message, 'error');
+            }
+        });
+
+        // Load today's attendance
+        async function loadTodayAttendance() {
+            try {
+                const records = await api.getTodayAttendance();
+                renderTodayTable(records);
+            } catch (error) {
+                utils.showAlert('Error loading attendance: ' + error.message, 'error');
+            }
+        }
+
+        function renderTodayTable(records) {
+            const tbody = document.getElementById('todayTableBody');
+            
+            if (records.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center">No attendance records today</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = records.map(record => {
+                const duration = record.checkOutTime 
+                    ? calculateDuration(record.checkInTime, record.checkOutTime)
+                    : 'Active';
+
+                return `
+                    <tr>
+                        <td>${record.employeeName}</td>
+                        <td>${utils.formatTime(record.checkInTime)}</td>
+                        <td>${record.checkOutTime ? utils.formatTime(record.checkOutTime) : '-'}</td>
+                        <td>${record.checkInLocation || '-'}</td>
+                        <td><span class="badge ${utils.getStatusBadge(record.status)}">${record.status}</span></td>
+                        <td>${duration}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function calculateDuration(checkIn, checkOut) {
+            const start = new Date(checkIn);
+            const end = new Date(checkOut);
+            const hours = Math.floor((end - start) / (1000 * 60 * 60));
+            const minutes = Math.floor(((end - start) % (1000 * 60 * 60)) / (1000 * 60));
+            return `${hours}h ${minutes}m`;
+        }
+
+        // Filter by date
+        async function filterByDate() {
+            const date = document.getElementById('filterDate').value;
+            if (!date) {
+                utils.showAlert('Please select a date', 'warning');
+                return;
+            }
+
+            try {
+                const records = await api.getAttendanceByDate(date);
+                renderHistoryTable(records);
+            } catch (error) {
+                utils.showAlert('Error loading history: ' + error.message, 'error');
+            }
+        }
+
+        function clearFilter() {
+            document.getElementById('filterDate').value = '';
+            document.getElementById('historyTableBody').innerHTML = 
+                '<tr><td colspan="6" class="text-center">Select a date to view history</td></tr>';
+        }
+
+        function renderHistoryTable(records) {
+            const tbody = document.getElementById('historyTableBody');
+            
+            if (records.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center">No records found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = records.map(record => {
+                const hours = record.checkOutTime 
+                    ? calculateDuration(record.checkInTime, record.checkOutTime)
+                    : '-';
+
+                return `
+                    <tr>
+                        <td>${utils.formatDate(record.checkInTime)}</td>
+                        <td>${record.employeeName}</td>
+                        <td>${utils.formatTime(record.checkInTime)}</td>
+                        <td>${record.checkOutTime ? utils.formatTime(record.checkOutTime) : '-'}</td>
+                        <td><span class="badge ${utils.getStatusBadge(record.status)}">${record.status}</span></td>
+                        <td>${hours}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Initialize
+        checkTodayStatus();
+        loadTodayAttendance();
+        document.getElementById('filterDate').value = utils.formatDateInput();
+    </script>
+</body>
+</html>

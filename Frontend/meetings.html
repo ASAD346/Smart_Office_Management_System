@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meetings - SOMS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>🏢 SOMS</h2>
+                <p class="user-role" id="userRole">Loading...</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html">📊 Dashboard</a></li>
+                <li><a href="employees.html">👥 Employees</a></li>
+                <li><a href="attendance.html">📅 Attendance</a></li>
+                <li><a href="meetings.html" class="active">🗓️ Meetings</a></li>
+                <li><a href="tasks.html">📋 Tasks</a></li>
+                <li id="reportsLink" class="hidden"><a href="reports.html">📈 Reports</a></li>
+                <li><a href="#" id="logoutBtn">🚪 Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1>Meetings</h1>
+                <div class="header-actions">
+                    <button id="addMeetingBtn" class="btn btn-primary hidden">+ Schedule Meeting</button>
+                    <span id="userName">Loading...</span>
+                </div>
+            </header>
+
+            <div class="content">
+                <!-- Upcoming Meetings -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Upcoming Meetings</h2>
+                        <button onclick="loadMeetings()" class="btn btn-sm btn-primary">Refresh</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="upcomingMeetingsList">Loading...</div>
+                    </div>
+                </div>
+
+                <!-- All Meetings -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>All Meetings</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Date & Time</th>
+                                        <th>Duration</th>
+                                        <th>Location</th>
+                                        <th>Organizer</th>
+                                        <th>Attendees</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="meetingsTableBody">
+                                    <tr><td colspan="7" class="text-center">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Meeting Modal -->
+    <div class="modal" id="meetingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Schedule Meeting</h2>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="meetingForm">
+                    <input type="hidden" id="meetingId">
+                    <div class="form-group">
+                        <label for="title">Title *</label>
+                        <input type="text" id="title" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="meetingDate">Date & Time *</label>
+                        <input type="datetime-local" id="meetingDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="duration">Duration (minutes) *</label>
+                        <input type="number" id="duration" class="form-control" value="60" min="15" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" class="form-control" placeholder="e.g., Conference Room A">
+                    </div>
+                    <div class="form-group">
+                        <label>Attendees * (Hold Ctrl to select multiple)</label>
+                        <select id="attendeeIds" class="form-control" multiple size="5" required>
+                            <option value="">Loading employees...</option>
+                        </select>
+                        <small class="text-muted">Selected: <span id="selectedCount">0</span></small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="saveMeeting()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        const user = api.getCurrentUser();
+        let meetings = [];
+        let employees = [];
+        let isEditing = false;
+
+        document.getElementById('userName').textContent = user.fullName;
+        document.getElementById('userRole').textContent = user.role;
+
+        if (utils.canManage()) {
+            document.getElementById('reportsLink').classList.remove('hidden');
+            document.getElementById('addMeetingBtn').classList.remove('hidden');
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                api.logout();
+                window.location.href = 'index.html';
+            }
+        });
+
+        async function loadMeetings() {
+            try {
+                meetings = await api.getMeetings();
+                const upcoming = await api.getUpcomingMeetings();
+                
+                renderUpcomingMeetings(upcoming);
+                renderMeetingsTable(meetings);
+            } catch (error) {
+                utils.showAlert('Error loading meetings: ' + error.message, 'error');
+            }
+        }
+
+        function renderUpcomingMeetings(data) {
+            const container = document.getElementById('upcomingMeetingsList');
+            
+            if (data.length === 0) {
+                container.innerHTML = '<p class="text-muted">No upcoming meetings</p>';
+                return;
+            }
+
+            container.innerHTML = data.map(meeting => `
+                <div class="mb-2" style="padding: 15px; border-left: 4px solid #2563eb; background: #f9fafb; border-radius: 5px;">
+                    <div class="d-flex justify-between">
+                        <div>
+                            <strong style="font-size: 16px;">${meeting.title}</strong><br>
+                            <small class="text-muted">
+                                📅 ${utils.formatDateTime(meeting.meetingDate)} | 
+                                ⏱️ ${meeting.duration} min | 
+                                📍 ${meeting.location || 'TBD'}
+                            </small><br>
+                            <small class="text-muted">
+                                Organizer: ${meeting.createdByName} | 
+                                Attendees: ${meeting.attendees.length}
+                            </small>
+                        </div>
+                        <div>
+                            ${getMeetingActions(meeting)}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getMeetingActions(meeting) {
+            const myAttendance = meeting.attendees.find(a => a.employeeId === user.employeeId);
+            
+            if (!myAttendance) return '';
+
+            if (myAttendance.status === 'Invited') {
+                return `
+                    <button onclick="updateStatus(${meeting.meetingId}, 'Accepted')" class="btn btn-sm btn-success">Accept</button>
+                    <button onclick="updateStatus(${meeting.meetingId}, 'Declined')" class="btn btn-sm btn-danger">Decline</button>
+                `;
+            } else {
+                return `<span class="badge ${utils.getStatusBadge(myAttendance.status)}">${myAttendance.status}</span>`;
+            }
+        }
+
+        async function updateStatus(meetingId, status) {
+            try {
+                await api.updateMeetingStatus(meetingId, status);
+                utils.showAlert(`Meeting ${status.toLowerCase()}`, 'success');
+                loadMeetings();
+            } catch (error) {
+                utils.showAlert('Error updating status: ' + error.message, 'error');
+            }
+        }
+
+        function renderMeetingsTable(data) {
+            const tbody = document.getElementById('meetingsTableBody');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center">No meetings scheduled</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = data.map(meeting => `
+                <tr>
+                    <td>${meeting.title}</td>
+                    <td>${utils.formatDateTime(meeting.meetingDate)}</td>
+                    <td>${meeting.duration} min</td>
+                    <td>${meeting.location || '-'}</td>
+                    <td>${meeting.createdByName}</td>
+                    <td>${meeting.attendees.length} people</td>
+                    <td>
+                        <button onclick="viewMeeting(${meeting.meetingId})" class="btn btn-sm btn-primary">View</button>
+                        ${utils.canManage() ? `
+                            <button onclick="editMeeting(${meeting.meetingId})" class="btn btn-sm btn-primary">Edit</button>
+                            <button onclick="deleteMeeting(${meeting.meetingId})" class="btn btn-sm btn-danger">Delete</button>
+                        ` : ''}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function loadEmployees() {
+            try {
+                employees = await api.getEmployees();
+                const select = document.getElementById('attendeeIds');
+                select.innerHTML = employees.map(emp => 
+                    `<option value="${emp.employeeId}">${emp.firstName} ${emp.lastName} (${emp.position})</option>`
+                ).join('');
+            } catch (error) {
+                console.error('Error loading employees:', error);
+            }
+        }
+
+        document.getElementById('attendeeIds').addEventListener('change', (e) => {
+            const count = Array.from(e.target.selectedOptions).length;
+            document.getElementById('selectedCount').textContent = count;
+        });
+
+        document.getElementById('addMeetingBtn').addEventListener('click', () => {
+            isEditing = false;
+            document.getElementById('modalTitle').textContent = 'Schedule Meeting';
+            document.getElementById('meetingForm').reset();
+            document.getElementById('meetingId').value = '';
+            document.getElementById('meetingDate').value = utils.formatDateTimeInput(new Date(Date.now() + 86400000));
+            document.getElementById('duration').value = 60;
+            openModal();
+        });
+
+        function openModal() {
+            document.getElementById('meetingModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('meetingModal').classList.remove('active');
+        }
+
+        async function saveMeeting() {
+            const form = document.getElementById('meetingForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const attendeeIds = Array.from(document.getElementById('attendeeIds').selectedOptions).map(opt => parseInt(opt.value));
+            
+            if (attendeeIds.length === 0) {
+                utils.showAlert('Please select at least one attendee', 'warning');
+                return;
+            }
+
+            const data = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                meetingDate: document.getElementById('meetingDate').value,
+                duration: parseInt(document.getElementById('duration').value),
+                location: document.getElementById('location').value,
+                attendeeIds: attendeeIds
+            };
+
+            try {
+                if (isEditing) {
+                    const id = document.getElementById('meetingId').value;
+                    await api.updateMeeting(id, data);
+                    utils.showAlert('Meeting updated successfully', 'success');
+                } else {
+                    await api.createMeeting(data);
+                    utils.showAlert('Meeting scheduled successfully', 'success');
+                }
+                
+                closeModal();
+                loadMeetings();
+            } catch (error) {
+                utils.showAlert('Error saving meeting: ' + error.message, 'error');
+            }
+        }
+
+        async function viewMeeting(id) {
+            try {
+                const meeting = await api.getMeeting(id);
+                const details = `
+Title: ${meeting.title}
+Date: ${utils.formatDateTime(meeting.meetingDate)}
+Duration: ${meeting.duration} minutes
+Location: ${meeting.location || 'TBD'}
+Organizer: ${meeting.createdByName}
+
+Description:
+${meeting.description || 'No description'}
+
+Attendees (${meeting.attendees.length}):
+${meeting.attendees.map(a => `- ${a.employeeName} (${a.status})`).join('\n')}
+                `;
+                alert(details);
+            } catch (error) {
+                utils.showAlert('Error loading meeting: ' + error.message, 'error');
+            }
+        }
+
+        async function editMeeting(id) {
+            try {
+                const meeting = await api.getMeeting(id);
+                isEditing = true;
+                
+                document.getElementById('modalTitle').textContent = 'Edit Meeting';
+                document.getElementById('meetingId').value = meeting.meetingId;
+                document.getElementById('title').value = meeting.title;
+                document.getElementById('description').value = meeting.description || '';
+                document.getElementById('meetingDate').value = utils.formatDateTimeInput(meeting.meetingDate);
+                document.getElementById('duration').value = meeting.duration;
+                document.getElementById('location').value = meeting.location || '';
+                
+                const select = document.getElementById('attendeeIds');
+                Array.from(select.options).forEach(opt => {
+                    opt.selected = meeting.attendees.some(a => a.employeeId === parseInt(opt.value));
+                });
+                document.getElementById('selectedCount').textContent = meeting.attendees.length;
+                
+                openModal();
+            } catch (error) {
+                utils.showAlert('Error loading meeting: ' + error.message, 'error');
+            }
+        }
+
+        async function deleteMeeting(id) {
+            if (!confirm('Are you sure you want to cancel this meeting?')) return;
+
+            try {
+                await api.deleteMeeting(id);
+                utils.showAlert('Meeting cancelled successfully', 'success');
+                loadMeetings();
+            } catch (error) {
+                utils.showAlert('Error cancelling meeting: ' + error.message, 'error');
+            }
+        }
+
+        // Initialize
+        loadEmployees();
+        loadMeetings();
+    </script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks - SOMS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>🏢 SOMS</h2>
+                <p class="user-role" id="userRole">Loading...</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html">📊 Dashboard</a></li>
+                <li><a href="employees.html">👥 Employees</a></li>
+                <li><a href="attendance.html">📅 Attendance</a></li>
+                <li><a href="meetings.html">🗓️ Meetings</a></li>
+                <li><a href="tasks.html" class="active">📋 Tasks</a></li>
+                <li id="reportsLink" class="hidden"><a href="reports.html">📈 Reports</a></li>
+                <li><a href="#" id="logoutBtn">🚪 Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1>Tasks</h1>
+                <div class="header-actions">
+                    <button id="addTaskBtn" class="btn btn-primary hidden">+ Create Task</button>
+                    <span id="userName">Loading...</span>
+                </div>
+            </header>
+
+            <div class="content">
+                <!-- Task Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card" style="border-left-color: #3b82f6;">
+                        <h3>Pending</h3>
+                        <div class="stat-value" id="pendingCount">0</div>
+                    </div>
+                    <div class="stat-card" style="border-left-color: #f59e0b;">
+                        <h3>In Progress</h3>
+                        <div class="stat-value" id="inProgressCount">0</div>
+                    </div>
+                    <div class="stat-card" style="border-left-color: #10b981;">
+                        <h3>Completed</h3>
+                        <div class="stat-value" id="completedCount">0</div>
+                    </div>
+                    <div class="stat-card" style="border-left-color: #ef4444;">
+                        <h3>Overdue</h3>
+                        <div class="stat-value" id="overdueCount">0</div>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex gap-2">
+                            <select id="statusFilter" class="form-control" style="max-width: 200px;">
+                                <option value="">All Status</option>
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                            <select id="priorityFilter" class="form-control" style="max-width: 200px;">
+                                <option value="">All Priority</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Urgent">Urgent</option>
+                            </select>
+                            <button onclick="loadTasks()" class="btn btn-primary">Apply Filters</button>
+                            <button onclick="clearFilters()" class="btn btn-secondary">Clear</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tasks Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>All Tasks</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Assigned To</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Due Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tasksTableBody">
+                                    <tr><td colspan="6" class="text-center">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Task Modal -->
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Create Task</h2>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="taskForm">
+                    <input type="hidden" id="taskId">
+                    <div class="form-group">
+                        <label for="title">Title *</label>
+                        <input type="text" id="title" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="assignedTo">Assign To *</label>
+                        <select id="assignedTo" class="form-control" required>
+                            <option value="">Loading employees...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="priority">Priority *</label>
+                        <select id="priority" class="form-control" required>
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                            <option value="Urgent">Urgent</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="dueDate">Due Date *</label>
+                        <input type="date" id="dueDate" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="saveTask()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        const user = api.getCurrentUser();
+        let tasks = [];
+        let employees = [];
+        let isEditing = false;
+
+        document.getElementById('userName').textContent = user.fullName;
+        document.getElementById('userRole').textContent = user.role;
+
+        if (utils.canManage()) {
+            document.getElementById('reportsLink').classList.remove('hidden');
+            document.getElementById('addTaskBtn').classList.remove('hidden');
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                api.logout();
+                window.location.href = 'index.html';
+            }
+        });
+
+        async function loadTasks() {
+            try {
+                const status = document.getElementById('statusFilter').value;
+                tasks = await api.getTasks(null, status || null);
+                
+                // Apply priority filter
+                const priority = document.getElementById('priorityFilter').value;
+                const filtered = priority ? tasks.filter(t => t.priority === priority) : tasks;
+                
+                // Update stats
+                updateStats(tasks);
+                renderTasksTable(filtered);
+            } catch (error) {
+                utils.showAlert('Error loading tasks: ' + error.message, 'error');
+            }
+        }
+
+        function updateStats(data) {
+            const now = new Date();
+            document.getElementById('pendingCount').textContent = data.filter(t => t.status === 'Pending').length;
+            document.getElementById('inProgressCount').textContent = data.filter(t => t.status === 'In Progress').length;
+            document.getElementById('completedCount').textContent = data.filter(t => t.status === 'Completed').length;
+            document.getElementById('overdueCount').textContent = data.filter(t => 
+                t.dueDate && new Date(t.dueDate) < now && (t.status === 'Pending' || t.status === 'In Progress')
+            ).length;
+        }
+
+        function renderTasksTable(data) {
+            const tbody = document.getElementById('tasksTableBody');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center">No tasks found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = data.map(task => {
+                const isOverdue = task.dueDate && new Date(task.dueDate) < new Date() && 
+                                 (task.status === 'Pending' || task.status === 'In Progress');
+                
+                return `
+                    <tr>
+                        <td>
+                            <strong>${task.title}</strong>
+                            ${isOverdue ? '<span class="badge badge-danger ml-1">OVERDUE</span>' : ''}
+                        </td>
+                        <td>${task.assignedToName}</td>
+                        <td><span class="badge ${utils.getPriorityBadge(task.priority)}">${task.priority}</span></td>
+                        <td><span class="badge ${utils.getStatusBadge(task.status)}">${task.status}</span></td>
+                        <td>${utils.formatDate(task.dueDate)}</td>
+                        <td>
+                            <button onclick="viewTask(${task.taskId})" class="btn btn-sm btn-primary">View</button>
+                            ${canUpdateTask(task) ? `
+                                <select onchange="quickUpdateStatus(${task.taskId}, this.value)" class="btn-sm" style="padding: 4px;">
+                                    <option value="">Update Status</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                </select>
+                            ` : ''}
+                            ${utils.canManage() ? `
+                                <button onclick="editTask(${task.taskId})" class="btn btn-sm btn-primary">Edit</button>
+                                <button onclick="deleteTask(${task.taskId})" class="btn btn-sm btn-danger">Delete</button>
+                            ` : ''}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function canUpdateTask(task) {
+            return task.assignedTo === user.employeeId || utils.canManage();
+        }
+
+        async function quickUpdateStatus(taskId, status) {
+            if (!status) return;
+            
+            try {
+                await api.updateTaskStatus(taskId, status);
+                utils.showAlert('Task status updated', 'success');
+                loadTasks();
+            } catch (error) {
+                utils.showAlert('Error updating status: ' + error.message, 'error');
+            }
+        }
+
+        function clearFilters() {
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('priorityFilter').value = '';
+            loadTasks();
+        }
+
+        async function loadEmployees() {
+            try {
+                employees = await api.getEmployees();
+                const select = document.getElementById('assignedTo');
+                select.innerHTML = employees.map(emp => 
+                    `<option value="${emp.employeeId}">${emp.firstName} ${emp.lastName}</option>`
+                ).join('');
+            } catch (error) {
+                console.error('Error loading employees:', error);
+            }
+        }
+
+        document.getElementById('addTaskBtn').addEventListener('click', () => {
+            isEditing = false;
+            document.getElementById('modalTitle').textContent = 'Create Task';
+            document.getElementById('taskForm').reset();
+            document.getElementById('taskId').value = '';
+            document.getElementById('startDate').value = utils.formatDateInput();
+            document.getElementById('dueDate').value = utils.formatDateInput(new Date(Date.now() + 7*86400000));
+            openModal();
+        });
+
+        function openModal() {
+            document.getElementById('taskModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('taskModal').classList.remove('active');
+        }
+
+        async function saveTask() {
+            const form = document.getElementById('taskForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const data = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                assignedTo: parseInt(document.getElementById('assignedTo').value),
+                priority: document.getElementById('priority').value,
+                startDate: document.getElementById('startDate').value || null,
+                dueDate: document.getElementById('dueDate').value
+            };
+
+            try {
+                if (isEditing) {
+                    const id = document.getElementById('taskId').value;
+                    await api.updateTask(id, data);
+                    utils.showAlert('Task updated successfully', 'success');
+                } else {
+                    await api.createTask(data);
+                    utils.showAlert('Task created successfully', 'success');
+                }
+                
+                closeModal();
+                loadTasks();
+            } catch (error) {
+                utils.showAlert('Error saving task: ' + error.message, 'error');
+            }
+        }
+
+        async function viewTask(id) {
+            try {
+                const task = await api.getTask(id);
+                const details = `
+Title: ${task.title}
+Assigned To: ${task.assignedToName}
+Assigned By: ${task.assignedByName}
+Priority: ${task.priority}
+Status: ${task.status}
+Start Date: ${utils.formatDate(task.startDate)}
+Due Date: ${utils.formatDate(task.dueDate)}
+${task.completedDate ? 'Completed: ' + utils.formatDate(task.completedDate) : ''}
+
+Description:
+${task.description || 'No description'}
+                `;
+                alert(details);
+            } catch (error) {
+                utils.showAlert('Error loading task: ' + error.message, 'error');
+            }
+        }
+
+        async function editTask(id) {
+            try {
+                const task = await api.getTask(id);
+                isEditing = true;
+                
+                document.getElementById('modalTitle').textContent = 'Edit Task';
+                document.getElementById('taskId').value = task.taskId;
+                document.getElementById('title').value = task.title;
+                document.getElementById('description').value = task.description || '';
+                document.getElementById('assignedTo').value = task.assignedTo;
+                document.getElementById('priority').value = task.priority;
+                document.getElementById('startDate').value = task.startDate ? utils.formatDateInput(task.startDate) : '';
+                document.getElementById('dueDate').value = utils.formatDateInput(task.dueDate);
+                
+                openModal();
+            } catch (error) {
+                utils.showAlert('Error loading task: ' + error.message, 'error');
+            }
+        }
+
+        async function deleteTask(id) {
+            if (!confirm('Are you sure you want to delete this task?')) return;
+
+            try {
+                await api.deleteTask(id);
+                utils.showAlert('Task deleted successfully', 'success');
+                loadTasks();
+            } catch (error) {
+                utils.showAlert('Error deleting task: ' + error.message, 'error');
+            }
+        }
+
+        // Initialize
+        loadEmployees();
+        loadTasks();
+    </script>
+</body>
+</html>

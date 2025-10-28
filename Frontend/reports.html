@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - SOMS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>🏢 SOMS</h2>
+                <p class="user-role" id="userRole">Loading...</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html">📊 Dashboard</a></li>
+                <li><a href="employees.html">👥 Employees</a></li>
+                <li><a href="attendance.html">📅 Attendance</a></li>
+                <li><a href="meetings.html">🗓️ Meetings</a></li>
+                <li><a href="tasks.html">📋 Tasks</a></li>
+                <li><a href="reports.html" class="active">📈 Reports</a></li>
+                <li><a href="#" id="logoutBtn">🚪 Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1>Reports & Analytics</h1>
+                <div class="header-actions">
+                    <span id="userName">Loading...</span>
+                </div>
+            </header>
+
+            <div class="content">
+                <!-- Date Range Filter -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Report Period</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex gap-2">
+                            <input type="date" id="startDate" class="form-control" style="max-width: 200px;">
+                            <input type="date" id="endDate" class="form-control" style="max-width: 200px;">
+                            <button onclick="loadReports()" class="btn btn-primary">Generate Reports</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task Analytics -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Task Analytics</h2>
+                        <button onclick="exportTaskReportPDF()" class="btn btn-sm btn-success">📄 Export PDF</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <h3>Total Tasks</h3>
+                                <div class="stat-value" id="totalTasks">-</div>
+                            </div>
+                            <div class="stat-card" style="border-left-color: #3b82f6;">
+                                <h3>Pending</h3>
+                                <div class="stat-value" id="pendingTasks">-</div>
+                            </div>
+                            <div class="stat-card" style="border-left-color: #f59e0b;">
+                                <h3>In Progress</h3>
+                                <div class="stat-value" id="inProgressTasks">-</div>
+                            </div>
+                            <div class="stat-card" style="border-left-color: #10b981;">
+                                <h3>Completed</h3>
+                                <div class="stat-value" id="completedTasks">-</div>
+                            </div>
+                            <div class="stat-card" style="border-left-color: #6366f1;">
+                                <h3>Completion Rate</h3>
+                                <div class="stat-value" id="completionRate">-</div>
+                            </div>
+                            <div class="stat-card" style="border-left-color: #ef4444;">
+                                <h3>Overdue</h3>
+                                <div class="stat-value" id="overdueTasks">-</div>
+                            </div>
+                        </div>
+
+                        <h3 class="mt-3">Tasks by Employee</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Assigned</th>
+                                        <th>Completed</th>
+                                        <th>Completion Rate</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tasksByEmployeeBody">
+                                    <tr><td colspan="4" class="text-center">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attendance Report -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Attendance Report</h2>
+                        <button onclick="exportAttendanceReportPDF()" class="btn btn-sm btn-success">📄 Export PDF</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Department</th>
+                                        <th>Total Days</th>
+                                        <th>Present</th>
+                                        <th>Late</th>
+                                        <th>Absent</th>
+                                        <th>Attendance %</th>
+                                        <th>Total Hours</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="attendanceReportBody">
+                                    <tr><td colspan="8" class="text-center">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Employee Performance -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Employee Performance</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Department</th>
+                                        <th>Attendance Rate</th>
+                                        <th>Tasks Completed</th>
+                                        <th>Task Completion Rate</th>
+                                        <th>Meetings Attended</th>
+                                        <th>Overall Rating</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="performanceReportBody">
+                                    <tr><td colspan="7" class="text-center">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        const user = api.getCurrentUser();
+
+        document.getElementById('userName').textContent = user.fullName;
+        document.getElementById('userRole').textContent = user.role;
+
+        // Redirect non-Admin/HR users
+        if (!utils.canManage()) {
+            utils.showAlert('You do not have permission to view reports', 'error');
+            setTimeout(() => window.location.href = 'dashboard.html', 2000);
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                api.logout();
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Set default dates (last 30 days)
+        const endDate = new Date();
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - 30);
+        
+        document.getElementById('startDate').value = utils.formatDateInput(startDate);
+        document.getElementById('endDate').value = utils.formatDateInput(endDate);
+
+        async function loadReports() {
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
+
+            if (!start || !end) {
+                utils.showAlert('Please select both start and end dates', 'warning');
+                return;
+            }
+
+            try {
+                // Load all reports
+                await Promise.all([
+                    loadTaskAnalytics(start, end),
+                    loadAttendanceReport(start, end),
+                    loadPerformanceReport(start, end)
+                ]);
+            } catch (error) {
+                utils.showAlert('Error loading reports: ' + error.message, 'error');
+            }
+        }
+
+        async function loadTaskAnalytics(start, end) {
+            try {
+                const analytics = await api.getTaskAnalytics(start, end);
+                
+                document.getElementById('totalTasks').textContent = analytics.totalTasks;
+                document.getElementById('pendingTasks').textContent = analytics.pendingTasks;
+                document.getElementById('inProgressTasks').textContent = analytics.inProgressTasks;
+                document.getElementById('completedTasks').textContent = analytics.completedTasks;
+                document.getElementById('completionRate').textContent = analytics.completionRate + '%';
+                document.getElementById('overdueTasks').textContent = analytics.overdueTasks;
+
+                // Tasks by employee
+                const tbody = document.getElementById('tasksByEmployeeBody');
+                if (analytics.tasksByEmployee.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="text-center">No data available</td></tr>';
+                } else {
+                    tbody.innerHTML = analytics.tasksByEmployee.map(emp => `
+                        <tr>
+                            <td>${emp.employeeName}</td>
+                            <td>${emp.assignedTasks}</td>
+                            <td>${emp.completedTasks}</td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div style="flex: 1; background: #e5e7eb; height: 8px; border-radius: 4px;">
+                                        <div style="width: ${emp.completionRate}%; background: #10b981; height: 100%; border-radius: 4px;"></div>
+                                    </div>
+                                    <span>${emp.completionRate}%</span>
+                                </div>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading task analytics:', error);
+            }
+        }
+
+        async function loadAttendanceReport(start, end) {
+            try {
+                const report = await api.getAttendanceReport(start, end);
+                const tbody = document.getElementById('attendanceReportBody');
+                
+                if (report.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" class="text-center">No data available</td></tr>';
+                } else {
+                    tbody.innerHTML = report.map(emp => `
+                        <tr>
+                            <td>${emp.employeeName}</td>
+                            <td>${emp.department}</td>
+                            <td>${emp.totalDays}</td>
+                            <td>${emp.presentDays}</td>
+                            <td>${emp.lateDays}</td>
+                            <td>${emp.absentDays}</td>
+                            <td>
+                                <span class="badge ${emp.attendancePercentage >= 90 ? 'badge-success' : emp.attendancePercentage >= 75 ? 'badge-warning' : 'badge-danger'}">
+                                    ${emp.attendancePercentage}%
+                                </span>
+                            </td>
+                            <td>${emp.totalHoursWorked}h</td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading attendance report:', error);
+            }
+        }
+
+        async function loadPerformanceReport(start, end) {
+            try {
+                const performance = await api.getEmployeePerformance(start, end);
+                const tbody = document.getElementById('performanceReportBody');
+                
+                if (performance.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="text-center">No data available</td></tr>';
+                } else {
+                    tbody.innerHTML = performance.map(emp => {
+                        // Calculate overall rating (average of attendance and task completion)
+                        const rating = ((emp.attendanceRate + emp.taskCompletionRate) / 2).toFixed(1);
+                        const ratingClass = rating >= 90 ? 'badge-success' : rating >= 75 ? 'badge-warning' : 'badge-danger';
+                        
+                        return `
+                            <tr>
+                                <td>${emp.employeeName}</td>
+                                <td>${emp.department}</td>
+                                <td>${emp.attendanceRate}%</td>
+                                <td>${emp.tasksCompleted} / ${emp.tasksAssigned}</td>
+                                <td>${emp.taskCompletionRate}%</td>
+                                <td>${emp.meetingsAttended}</td>
+                                <td><span class="badge ${ratingClass}">${rating}%</span></td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+            } catch (error) {
+                console.error('Error loading performance report:', error);
+            }
+        }
+
+        async function exportTaskReportPDF() {
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
+
+            if (!start || !end) {
+                utils.showAlert('Please select date range first', 'warning');
+                return;
+            }
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                // Add title
+                doc.setFontSize(18);
+                doc.text('Task Analytics Report', 14, 20);
+                
+                // Add date range
+                doc.setFontSize(10);
+                doc.text(`Period: ${utils.formatDate(start)} - ${utils.formatDate(end)}`, 14, 28);
+                doc.text(`Generated: ${new Date().toLocaleString()}`, 14, 34);
+
+                // Get task analytics data
+                const analytics = await api.getTaskAnalytics(start, end);
+
+                // Add summary statistics
+                doc.setFontSize(12);
+                doc.text('Summary Statistics', 14, 45);
+                doc.setFontSize(10);
+                const summaryData = [
+                    ['Total Tasks', analytics.totalTasks],
+                    ['Pending', analytics.pendingTasks],
+                    ['In Progress', analytics.inProgressTasks],
+                    ['Completed', analytics.completedTasks],
+                    ['Overdue', analytics.overdueTasks],
+                    ['Completion Rate', analytics.completionRate + '%']
+                ];
+
+                doc.autoTable({
+                    startY: 48,
+                    head: [['Metric', 'Value']],
+                    body: summaryData,
+                    theme: 'grid',
+                    headStyles: { fillColor: [99, 102, 241] }
+                });
+
+                // Add tasks by employee table
+                doc.setFontSize(12);
+                doc.text('Tasks by Employee', 14, doc.lastAutoTable.finalY + 10);
+                
+                const employeeData = analytics.tasksByEmployee.map(emp => [
+                    emp.employeeName,
+                    emp.assignedTasks,
+                    emp.completedTasks,
+                    emp.completionRate + '%'
+                ]);
+
+                doc.autoTable({
+                    startY: doc.lastAutoTable.finalY + 13,
+                    head: [['Employee', 'Assigned', 'Completed', 'Completion Rate']],
+                    body: employeeData,
+                    theme: 'striped',
+                    headStyles: { fillColor: [99, 102, 241] }
+                });
+
+                // Save the PDF
+                doc.save(`Task_Analytics_${start}_to_${end}.pdf`);
+                utils.showAlert('PDF downloaded successfully', 'success');
+            } catch (error) {
+                console.error('Export error:', error);
+                utils.showAlert('Error generating PDF: ' + error.message, 'error');
+            }
+        }
+
+        async function exportAttendanceReportPDF() {
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
+
+            if (!start || !end) {
+                utils.showAlert('Please select date range first', 'warning');
+                return;
+            }
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('l'); // Landscape orientation
+
+                // Add title
+                doc.setFontSize(18);
+                doc.text('Attendance Report', 14, 20);
+                
+                // Add date range
+                doc.setFontSize(10);
+                doc.text(`Period: ${utils.formatDate(start)} - ${utils.formatDate(end)}`, 14, 28);
+                doc.text(`Generated: ${new Date().toLocaleString()}`, 14, 34);
+
+                // Get attendance report data
+                const report = await api.getAttendanceReport(start, end);
+
+                // Prepare table data
+                const tableData = report.map(emp => [
+                    emp.employeeName,
+                    emp.department,
+                    emp.totalDays,
+                    emp.presentDays,
+                    emp.lateDays,
+                    emp.absentDays,
+                    emp.attendancePercentage + '%',
+                    emp.totalHoursWorked + 'h'
+                ]);
+
+                doc.autoTable({
+                    startY: 40,
+                    head: [['Employee', 'Department', 'Total Days', 'Present', 'Late', 'Absent', 'Attendance %', 'Total Hours']],
+                    body: tableData,
+                    theme: 'striped',
+                    headStyles: { fillColor: [99, 102, 241] },
+                    styles: { fontSize: 9 },
+                    columnStyles: {
+                        0: { cellWidth: 40 },
+                        1: { cellWidth: 35 }
+                    }
+                });
+
+                // Save the PDF
+                doc.save(`Attendance_Report_${start}_to_${end}.pdf`);
+                utils.showAlert('PDF downloaded successfully', 'success');
+            } catch (error) {
+                console.error('Export error:', error);
+                utils.showAlert('Error generating PDF: ' + error.message, 'error');
+            }
+        }
+
+        // Load reports on page load
+        loadReports();
+    </script>
+</body>
+</html>

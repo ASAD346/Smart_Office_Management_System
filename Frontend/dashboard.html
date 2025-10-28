@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SOMS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>🏢 SOMS</h2>
+                <p class="user-role" id="userRole">Loading...</p>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html" class="active">📊 Dashboard</a></li>
+                <li><a href="employees.html">👥 Employees</a></li>
+                <li><a href="attendance.html">📅 Attendance</a></li>
+                <li><a href="meetings.html">🗓️ Meetings</a></li>
+                <li><a href="tasks.html">📋 Tasks</a></li>
+                <li id="reportsLink" class="hidden"><a href="reports.html">📈 Reports</a></li>
+                <li><a href="#" id="logoutBtn">🚪 Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <h1>Dashboard</h1>
+                <div class="header-actions">
+                    <span id="userName">Loading...</span>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content" id="content">
+                <!-- Stats Grid -->
+                <div class="stats-grid" id="statsGrid">
+                    <div class="stat-card">
+                        <h3>Total Employees</h3>
+                        <div class="stat-value" id="totalEmployees">-</div>
+                        <div class="stat-label">Active users</div>
+                    </div>
+
+                    <div class="stat-card" style="border-left-color: #10b981;">
+                        <h3>Present Today</h3>
+                        <div class="stat-value" id="presentToday">-</div>
+                        <div class="stat-label">Attendance rate</div>
+                    </div>
+
+                    <div class="stat-card" style="border-left-color: #f59e0b;">
+                        <h3>Upcoming Meetings</h3>
+                        <div class="stat-value" id="upcomingMeetings">-</div>
+                        <div class="stat-label">This week</div>
+                    </div>
+
+                    <div class="stat-card" style="border-left-color: #ef4444;">
+                        <h3>Pending Tasks</h3>
+                        <div class="stat-value" id="pendingTasks">-</div>
+                        <div class="stat-label">In progress</div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Today's Attendance</h2>
+                        <a href="attendance.html" class="btn btn-sm btn-primary">View All</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table id="attendanceTable">
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Check-In Time</th>
+                                        <th>Status</th>
+                                        <th>Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="attendanceTableBody">
+                                    <tr>
+                                        <td colspan="4" class="text-center">Loading...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Meetings -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Upcoming Meetings</h2>
+                        <a href="meetings.html" class="btn btn-sm btn-primary">View All</a>
+                    </div>
+                    <div class="card-body">
+                        <div id="meetingsList">Loading...</div>
+                    </div>
+                </div>
+
+                <!-- My Tasks -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>My Tasks</h2>
+                        <a href="tasks.html" class="btn btn-sm btn-primary">View All</a>
+                    </div>
+                    <div class="card-body">
+                        <div id="tasksList">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        const user = api.getCurrentUser();
+        
+        // Set user info
+        document.getElementById('userName').textContent = user.fullName;
+        document.getElementById('userRole').textContent = user.role;
+
+        // Show reports link for Admin/HR
+        if (utils.canManage()) {
+            document.getElementById('reportsLink').classList.remove('hidden');
+        }
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                api.logout();
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Load dashboard data
+        async function loadDashboard() {
+            try {
+                // Load stats
+                const [employees, attendance, meetings, tasks] = await Promise.all([
+                    api.getEmployees(),
+                    api.getTodayAttendance(),
+                    api.getUpcomingMeetings(),
+                    api.getMyTasks()
+                ]);
+
+                // Update stats
+                document.getElementById('totalEmployees').textContent = employees.length;
+                document.getElementById('presentToday').textContent = attendance.length;
+                document.getElementById('upcomingMeetings').textContent = meetings.length;
+                document.getElementById('pendingTasks').textContent = 
+                    tasks.filter(t => t.status === 'Pending' || t.status === 'In Progress').length;
+
+                // Load attendance table
+                loadAttendanceTable(attendance);
+
+                // Load meetings list
+                loadMeetings(meetings.slice(0, 5));
+
+                // Load tasks list
+                loadTasks(tasks.slice(0, 5));
+
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                utils.showAlert('Error loading dashboard data', 'error');
+            }
+        }
+
+        function loadAttendanceTable(attendance) {
+            const tbody = document.getElementById('attendanceTableBody');
+            
+            if (attendance.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center">No attendance records today</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = attendance.slice(0, 10).map(record => `
+                <tr>
+                    <td>${record.employeeName}</td>
+                    <td>${utils.formatTime(record.checkInTime)}</td>
+                    <td><span class="badge ${utils.getStatusBadge(record.status)}">${record.status}</span></td>
+                    <td>${record.checkInLocation || '-'}</td>
+                </tr>
+            `).join('');
+        }
+
+        function loadMeetings(meetings) {
+            const container = document.getElementById('meetingsList');
+            
+            if (meetings.length === 0) {
+                container.innerHTML = '<p class="text-muted">No upcoming meetings</p>';
+                return;
+            }
+
+            container.innerHTML = meetings.map(meeting => `
+                <div class="mb-2" style="padding: 10px; border-left: 3px solid #2563eb; background: #f9fafb;">
+                    <strong>${meeting.title}</strong><br>
+                    <small class="text-muted">
+                        📅 ${utils.formatDateTime(meeting.meetingDate)} 
+                        | ⏱️ ${meeting.duration} min
+                        | 📍 ${meeting.location || 'TBD'}
+                    </small>
+                </div>
+            `).join('');
+        }
+
+        function loadTasks(tasks) {
+            const container = document.getElementById('tasksList');
+            
+            if (tasks.length === 0) {
+                container.innerHTML = '<p class="text-muted">No tasks assigned</p>';
+                return;
+            }
+
+            container.innerHTML = tasks.map(task => `
+                <div class="mb-2" style="padding: 10px; border-left: 3px solid #f59e0b; background: #f9fafb;">
+                    <strong>${task.title}</strong>
+                    <span class="badge ${utils.getStatusBadge(task.status)} ml-1">${task.status}</span>
+                    <span class="badge ${utils.getPriorityBadge(task.priority)} ml-1">${task.priority}</span>
+                    <br>
+                    <small class="text-muted">
+                        Due: ${utils.formatDate(task.dueDate)}
+                    </small>
+                </div>
+            `).join('');
+        }
+
+        // Load data on page load
+        loadDashboard();
+    </script>
+</body>
+</html>
