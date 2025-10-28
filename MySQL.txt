@@ -1,0 +1,124 @@
+CREATE DATABASE SOMS_DB;
+USE SOMS_DB;
+
+-- 1. Roles Table
+CREATE TABLE Roles (
+    RoleId INT PRIMARY KEY AUTO_INCREMENT,
+    RoleName VARCHAR(50) NOT NULL UNIQUE,
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. Departments Table
+CREATE TABLE Departments (
+    DepartmentId INT PRIMARY KEY AUTO_INCREMENT,
+    DepartmentName VARCHAR(100) NOT NULL,
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 3. Users Table (Authentication)
+CREATE TABLE Users (
+    UserId INT PRIMARY KEY AUTO_INCREMENT,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    PasswordHash VARCHAR(255) NOT NULL,
+    RoleId INT NOT NULL,
+    IsActive BOOLEAN DEFAULT TRUE,
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    LastLogin DATETIME NULL,
+    FOREIGN KEY (RoleId) REFERENCES Roles(RoleId)
+);
+
+-- 4. Employees Table
+CREATE TABLE Employees (
+    EmployeeId INT PRIMARY KEY AUTO_INCREMENT,
+    UserId INT NOT NULL,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    PhoneNumber VARCHAR(20),
+    DepartmentId INT,
+    Position VARCHAR(100),
+    JoinDate DATE NOT NULL,
+    ProfilePicture VARCHAR(255) NULL,
+    Address TEXT,
+    FOREIGN KEY (UserId) REFERENCES Users(UserId) ON DELETE CASCADE,
+    FOREIGN KEY (DepartmentId) REFERENCES Departments(DepartmentId)
+);
+
+-- 5. Attendance Table
+CREATE TABLE Attendance (
+    AttendanceId INT PRIMARY KEY AUTO_INCREMENT,
+    EmployeeId INT NOT NULL,
+    CheckInTime DATETIME NOT NULL,
+    CheckOutTime DATETIME NULL,
+    CheckInLocation VARCHAR(255),
+    CheckOutLocation VARCHAR(255),
+    Status ENUM('Present', 'Late', 'Absent', 'Half-Day') DEFAULT 'Present',
+    Notes TEXT NULL,
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (EmployeeId) REFERENCES Employees(EmployeeId) ON DELETE CASCADE
+);
+
+-- 6. Meetings Table
+CREATE TABLE Meetings (
+    MeetingId INT PRIMARY KEY AUTO_INCREMENT,
+    Title VARCHAR(200) NOT NULL,
+    Description TEXT,
+    MeetingDate DATETIME NOT NULL,
+    Duration INT NOT NULL, -- in minutes
+    Location VARCHAR(200),
+    CreatedBy INT NOT NULL,
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (CreatedBy) REFERENCES Employees(EmployeeId)
+);
+
+-- 7. MeetingAttendees Table (Many-to-Many)
+CREATE TABLE MeetingAttendees (
+    MeetingAttendeeId INT PRIMARY KEY AUTO_INCREMENT,
+    MeetingId INT NOT NULL,
+    EmployeeId INT NOT NULL,
+    Status ENUM('Invited', 'Accepted', 'Declined', 'Attended') DEFAULT 'Invited',
+    FOREIGN KEY (MeetingId) REFERENCES Meetings(MeetingId) ON DELETE CASCADE,
+    FOREIGN KEY (EmployeeId) REFERENCES Employees(EmployeeId) ON DELETE CASCADE,
+    UNIQUE KEY unique_meeting_attendee (MeetingId, EmployeeId)
+);
+
+-- 8. Tasks Table
+CREATE TABLE Tasks (
+    TaskId INT PRIMARY KEY AUTO_INCREMENT,
+    Title VARCHAR(200) NOT NULL,
+    Description TEXT,
+    AssignedTo INT NOT NULL,
+    AssignedBy INT NOT NULL,
+    Status ENUM('Pending', 'In Progress', 'Completed', 'Cancelled') DEFAULT 'Pending',
+    Priority ENUM('Low', 'Medium', 'High', 'Urgent') DEFAULT 'Medium',
+    StartDate DATE,
+    DueDate DATE,
+    CompletedDate DATE NULL,
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UpdatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (AssignedTo) REFERENCES Employees(EmployeeId),
+    FOREIGN KEY (AssignedBy) REFERENCES Employees(EmployeeId)
+);
+
+-- Insert Default Roles
+INSERT INTO Roles (RoleName) VALUES 
+    ('Admin'),
+    ('HR'),
+    ('Employee');
+
+-- Insert Sample Departments
+INSERT INTO Departments (DepartmentName) VALUES 
+    ('IT'),
+    ('Human Resources'),
+    ('Finance'),
+    ('Marketing'),
+    ('Operations');
+    
+    
+    
+    -- Insert Admin User (password: admin123 - you'll hash this in backend)
+INSERT INTO Users (Email, PasswordHash, RoleId) VALUES 
+    ('admin@soms.com', 'temp_hash_123', 1);
+
+INSERT INTO Employees (UserId, FirstName, LastName, PhoneNumber, DepartmentId, Position, JoinDate) VALUES 
+    (1, 'Admin', 'User', '1234567890', 1, 'System Administrator', '2024-01-01');
+    
